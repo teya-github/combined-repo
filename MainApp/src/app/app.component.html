@@ -1,0 +1,132 @@
+<div id="loginPageDiv" *ngIf="!isloggedIn">
+  <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top shadow" style="justify-content: center;">
+    <h1 style="color: white;">MY APP</h1>
+  </nav>
+  <div *ngIf="choice == 'register'" id="register" class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="card shadow-lg border-0 rounded-lg mt-5">
+          <div class="card-header">
+            <h3 class="text-center font-weight-light my-4">Daftar Pengguna</h3>
+          </div>
+          <div class="card-body">
+            <!-- <form [formGroup]="loginform" (ngSubmit)="proceedlogin()"> -->
+            <form>
+                <div class="modal-body">
+                    <div class="mb-3 row">
+                        <label for="name" class="col-sm-3 col-form-label">Nama Pengguna</label>
+                        <div class="col-sm-9">
+                            <input type="name" class="form-control" id="name" name="name">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="email" class="col-sm-3 col-form-label">Alamat Emel</label>
+                        <div class="col-sm-9">
+                            <input type="email" class="form-control" id="email" name="email">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="icNum" class="col-sm-3 col-form-label">Nombor IC</label>
+                        <div class="col-sm-9">
+                            <input type="icNum" class="form-control" id="icNum" name="icNum">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="icNum" class="col-sm-3 col-form-label">Peranan</label>
+                        <div class="col-sm-9">
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>Pelawat</option>
+                                <option>Staf</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- <div class="mb-3 row">
+                        <label for="icNum" class="col-sm-3 col-form-label">Status</label>
+                        <div class="col-sm-8 form-check form-switch" style=" padding-top: 10px; padding-left: 50px;">
+                            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" checked>
+                            <label class="form-check-label" for="flexSwitchCheckDefault">Aktif</label>
+                        </div>
+                    </div> -->
+                    <div class="d-flex align-items-right justify-content-end mt-4 mb-0">
+                        <!-- <a class="small" href="password.html">Lupa Katalaluan?</a> -->
+                        <button class="btn btn-primary">Daftar</button>
+                      </div>
+                </div>
+            </form>
+          </div>
+          <div class="card-footer text-center py-3">
+            <div class="small"><a (click)="loginForm()">Sudah mempunyai akaun? Log Masuk</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="choice == 'login'" id="login" class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-5">
+        <div class="card shadow-lg border-0 rounded-lg mt-5">
+          <div class="card-header">
+            <h3 class="text-center font-weight-light my-4">Log Masuk</h3>
+          </div>
+          <div class="card-body">
+            <form [formGroup]="loginform" (ngSubmit)="proceedlogin()">
+              <div class="form-floating mb-3">
+                <input class="form-control" id="inputEmail" type="email" formControlName="id" placeholder="name@example.com" />
+                <label for="inputEmail">Alamat Emel</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input class="form-control" id="inputPassword" type="password" formControlName="password" placeholder="Password" />
+                <label for="inputPassword">Katalaluan</label>
+              </div>
+              <div class="form-check mb-3">
+                <input class="form-check-input" id="inputRememberPassword" type="checkbox" value="" />
+                <label class="form-check-label" for="inputRememberPassword">Ingat Saya</label>
+              </div>
+              <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+                <a class="small" href="password.html">Lupa Katalaluan?</a>
+                <button class="btn btn-primary">Log Masuk</button>
+              </div>
+            </form>
+          </div>
+          <div class="card-footer text-center py-3">
+            <div class="small"><a (click)="registerForm()">Belum Berdaftar? Daftar Pengguna!</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="isloggedIn">
+
+  <app-topnav></app-topnav>
+
+  <div id="layoutSidenav">
+    <div id="layoutSidenav_nav">
+      <app-sidenav></app-sidenav>
+    </div>
+
+    <div id="layoutSidenav_content">
+      <main>
+        <div class="container-fluid px-4">
+          <router-outlet></router-outlet>
+        </div>
+      </main>
+
+      <footer class="py-4 bg-light mt-auto shadow">
+        <div class="container-fluid px-4">
+          <div class="d-flex align-items-center justify-content-between small">
+            <div class="text-muted">Copyright &copy; Your Website 2023</div>
+            <div>
+              <a href="#">Privacy Policy</a>
+              &middot;
+              <a href="#">Terms &amp; Conditions</a>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+
+</div>    

@@ -1,0 +1,245 @@
+<h1 class="mt-4">{{title}}</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">{{breadcrumb}}</li>
+</ol>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <!-- <i class="fas fa-table me-1"></i> -->
+        Senarai Pengguna
+        <button class="btn btn-success" (click)="clearUser()" data-bs-toggle="modal"
+            data-bs-target="#exampleModal">Tambah Pengguna</button>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <div class="datatable_wrapper">
+                <div class="datatable-container">
+                    <table id="example" class="datatable-table">
+                        <thead>
+                            <th>#</th>
+                            <th>Nama Pengguna</th>
+                            <th>ID Pengguna</th>
+                            <th>No IC</th>
+                            <th>Peranan</th>
+                            <th>Kemaskini</th>
+                            <th>Status</th>
+                        </thead>
+                        <tbody>
+                            <tr
+                                *ngFor="let user of listUser  | paginate: { itemsPerPage: ip, currentPage: page };  let i= index">
+                                <!-- <td>{{i+1}}</td> -->
+                                <td>{{ip * (page-1)+i+1}}</td>
+                                <td>{{user.name}}</td>
+                                <td>{{user.email}}</td>
+                                <td>{{user.icNum}}</td>
+                                <td name="role" id="role">{{user.role}}</td>
+                                <td><a (click)="GetUser(user.email)" data-bs-toggle="modal"
+                                        data-bs-target="#exampleModal"><i class="bi bi-pencil-square"></i></a>
+                                    &nbsp;
+                                    <a><i (click)="deleteUser(user.id)" class="bi bi-trash"></i></a>
+                                </td>
+                                <td>{{user.statusName}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="text-center col-12">
+                        <pagination-controls (pageChange)="page = $event"></pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
+    <!-- Modal -->
+    <form #form="ngForm" (ngSubmit)="onSubmit()" class="needs-validation">
+        <div class="modal fade " id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Kemaskini</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3 row">
+                            <label for="name" class="col-sm-3 col-form-label">Nama Pengguna</label>
+                            <div class="col-sm-9">
+                                <input type="name" class="form-control" id="name" name="name" [(ngModel)]="user.name"
+                                    value="{{user.name}}">
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="email" class="col-sm-3 col-form-label">Alamat Emel</label>
+                            <div class="col-sm-9">
+                                <input type="email" class="form-control" id="email" name="email"
+                                    [(ngModel)]="user.email" value="{{user.email}}">
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="icNum" class="col-sm-3 col-form-label">Nombor IC</label>
+                            <div class="col-sm-9">
+                                <input type="icNum" class="form-control" id="icNum" name="icNum"
+                                    [(ngModel)]="user.icNum" value="{{user.icNum}}">
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label for="password" class="col-sm-3 col-form-label">Katalaluan</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="password" name="password"
+                                    [(ngModel)]="user.password" value="{{user.password}}">
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label for="icNum" class="col-sm-3 col-form-label">Peranan</label>
+                            <div class="col-sm-9">
+                                <select [(ngModel)]="user.roleId" name="role" class="form-select" id="role"
+                                    aria-label="Default select example">
+                                    <option selected>Pilih</option>
+                                    <option *ngFor="let role of listRole" [value]="role.roleId">{{role.description}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- <div class="mb-3 row">
+                            <label for="icNum" class="col-sm-3 col-form-label">Status</label>
+                            <div class="col-sm-8 form-check form-switch" style=" padding-top: 10px;
+                        padding-left: 50px;">
+                                <input id="cbStatus" name="cbStatus" (click)="changeStatus(stat)"
+                                    class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault"
+                                    [checked]="stat === 'Aktif'" [(ngModel)]="user.status" value="{{user.status}}">
+                                <label class="form-check-label" for="flexSwitchCheckDefault"
+                                    [innerHtml]="stat">Aktif</label>
+                            </div>
+                        </div> -->
+                        <div class="mb-3 row">
+                            <label for="status" class="col-sm-3 col-form-label">Status</label>
+                            <div class="col-sm-8 form-check form-switch" style=" padding-top: 10px;
+                        padding-left: 50px;">
+                                <input id="cbStatus" name="cbStatus"
+                                    (change)="checkValue(user.status?'Aktif':'Tidak Aktif')" class="form-check-input"
+                                    type="checkbox" role="switch" id="flexSwitchCheckDefault" [(ngModel)]="user.status">
+                                <label class="form-check-label" for="flexSwitchCheckDefault" [innerHtml]="stat"></label>
+                            </div>
+                            <!-- <div class="col-sm-9">
+                                <input  [checked]="value === '1'" (click)="value = '1'" type="checkbox" class="form-check-input" id="status" name="status"
+                                    [(ngModel)]="user.status">
+                                    <label class="form-check-label" for="flexSwitchCheckDefault"
+                                    [innerHtml]="stat"></label>
+                            </div> -->
+                        </div>
+
+                        <!-- <table>
+                        <tr>
+                            <td class="font-weight-bold">Card Name</td>
+                            <td class="font-weight-bold">:</td>
+                            <td>{{user.name | uppercase}}</td>
+                        </tr>
+                        <tr>
+                            <td class="font-weight-bold">Card Number</td>
+                            <td class="font-weight-bold">:</td>
+                            <td>{{user.icNum}}</td>
+                        </tr>
+                        <tr>
+                            <td class="font-weight-bold">Expiry Month</td>
+                            <td class="font-weight-bold">:</td>
+                            <td>{{user.email}}</td>
+                        </tr>
+                    </table> -->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
+                        <button type="button" type="submit" class="btn btn-primary"
+                            data-bs-dismiss="modal">Simpan</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <!-- <i class="fas fa-table me-1"></i> -->
+        mat-table with pagination and exporter
+        <!-- <button class="btn btn-success">Tambah Pengguna</button> -->
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <div class="datatable_wrapper">
+                <div class="datatable-container">
+                    <mat-form-field>
+                        <!-- <mat-label>Filter</mat-label> -->
+                        <input matInput (keyup)="applyFilter($event)" placeholder="Search" class="form-select" #input>
+                    </mat-form-field>
+
+                    <mat-table matTableExporter [dataSource]="dataSource" #exporter="matTableExporter" matSort
+                        class="datatable-table table-bordered" (matSortChange)="announceSortChange($event)">
+
+                        <ng-container matColumnDef="index">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header> # </mat-header-cell>
+                            <mat-cell *matCellDef="let index = index"> {{index+1}} </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="name">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name">
+                                Nama Pengguna </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="email">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header> Emel </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{element.email}} </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="icNum">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header> Nombor IC </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{element.icNum}} </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="role">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header> Peranan </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{element.role}} </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="kemaskini">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header> Kemaskini </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> <a (click)="GetUser(element.email)"
+                                    data-bs-toggle="modal" data-bs-target="#exampleModal"><i
+                                        class="bi bi-pencil-square"></i></a>
+                                &nbsp;
+                                <a href="#"><i (click)="deleteUser(element.id)" class="bi bi-trash"></i></a> </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="status">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{element.statusName}} </mat-cell>
+                        </ng-container>
+
+                        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                    </mat-table>
+
+                    <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+                    <!-- </div> -->
+                    <button mat-raised-button
+                        (click)="exporter.exportTable('xlsx', {fileName:'test', sheet: 'sheet_name', Props: {Author: '-'}})">Excel</button>
+                    <button mat-raised-button (click)="exporter.exportTable('csv')">Csv</button>
+                    <button mat-raised-button (click)="exporter.exportTable('json')">Json</button>
+                    <button mat-raised-button (click)="exporter.exportTable('txt')">Txt</button>
+                    <div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

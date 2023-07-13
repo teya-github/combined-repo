@@ -16,21 +16,23 @@
                 <div class="datatable-container">
                     <table id="example" class="datatable-table">
                         <thead>
-                            <th>#</th>
-                            <th>Nama Pengguna</th>
-                            <th>ID Pengguna</th>
-                            <th>No IC</th>
-                            <th>Peranan</th>
-                            <th>Kemaskini</th>
-                            <th>Status</th>
+                            <tr>
+                                <th>#</th>
+                                <th>Nama Pengguna</th>
+                                <th>ID Pengguna</th>
+                                <th>No IC</th>
+                                <th>Peranan</th>
+                                <th>Kemaskini</th>
+                                <th>Status</th>
+                            </tr>
                         </thead>
                         <tbody>
                             <tr
                                 *ngFor="let user of listUser  | paginate: { itemsPerPage: ip, currentPage: page };  let i= index">
                                 <!-- <td>{{i+1}}</td> -->
                                 <td>{{ip * (page-1)+i+1}}</td>
-                                <td>{{user.name}}</td>
-                                <td>{{user.email}}</td>
+                                <td>{{user.name|uppercase}}</td>
+                                <td>{{user.email|lowercase}}</td>
                                 <td>{{user.icNum}}</td>
                                 <td name="role" id="role">{{user.role}}</td>
                                 <td><a (click)="GetUser(user.email)" data-bs-toggle="modal"
@@ -76,10 +78,17 @@
                         <div class="mb-3 row">
                             <label for="email" class="col-sm-3 col-form-label">Alamat Emel</label>
                             <div class="col-sm-9">
-                                <input type="email" class="form-control" id="email" name="email"
-                                    [(ngModel)]="user.email" value="{{user.email}}">
+                                <input type="email" [formControl]="emailFormControl" class="form-control" id="email"
+                                    name="email" [(ngModel)]="user.email" value="{{user.email|lowercase}}">
+                                <span style="color:red;"
+                                    *ngIf="emailFormControl.invalid && (emailFormControl.dirty || emailFormControl.touched)">
+                                    Please enter a valid email address.
+                                </span>
                             </div>
                         </div>
+
+
+
                         <div class="mb-3 row">
                             <label for="icNum" class="col-sm-3 col-form-label">Nombor IC</label>
                             <div class="col-sm-9">
@@ -192,12 +201,12 @@
                         <ng-container matColumnDef="name">
                             <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name">
                                 Nama Pengguna </mat-header-cell>
-                            <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+                            <mat-cell *matCellDef="let element"> {{element.name|uppercase}} </mat-cell>
                         </ng-container>
 
                         <ng-container matColumnDef="email">
                             <mat-header-cell *matHeaderCellDef mat-sort-header> Emel </mat-header-cell>
-                            <mat-cell *matCellDef="let element"> {{element.email}} </mat-cell>
+                            <mat-cell *matCellDef="let element"> {{element.email|lowercase}} </mat-cell>
                         </ng-container>
 
                         <ng-container matColumnDef="icNum">

@@ -12,6 +12,7 @@ import { Role } from 'src/app/models/role';
 import { NumberFormatStyle, DatePipe } from '@angular/common';
 import { Status } from 'src/app/models/status';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-userlist',
@@ -21,7 +22,8 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 export class UserlistComponent {
   title = "Pengurusan Pengguna";
   breadcrumb = "Pengurusan pengguna membolehkan pentadbir melihat senarai yang terdapat dalam portal";
-  
+  emailFormControl = new FormControl('', [Validators.required, Validators.email, Validators.pattern("[^ @]*@[^ @]*"),]);
+
   constructor(private router: Router, private _freeApiService: ApiService, private _liveAnnouncer: LiveAnnouncer, private datePipe: DatePipe) {
   }
   listRole: Role[] = [];
@@ -41,14 +43,13 @@ export class UserlistComponent {
     this.getAllRoles();
     this.getAllStatus();
      
-
     console.log("HELLO1 : "+this.date);
     console.log("HELLO2 : "+this.currentDate);
     const formattedDateTime = this.datePipe.transform(this.date, 'yyyy-MM-dd HH:mm:ss');
     console.log(formattedDateTime);
   }
 
-  // @ViewChild('empTbSort') empTbSort = new MatSort();
+  // @ViewChilzd('empTbSort') empTbSort = new MatSort();
   @ViewChild(MatSort) sort = new MatSort;
   displayedColumns = ['index', 'name', 'email', 'icNum', 'role', 'kemaskini', 'status'];
   @ViewChild(MatPaginator, { static: true })

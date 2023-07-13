@@ -11929,11 +11929,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ain.fatiha\\Documents\\GitHub\\Cards\\Cards.API\\Cards.API.csproj",
+      "projectUniqueName": "C:\\Users\\ain.fatiha\\Documents\\GitHub\\combined-repo\\Cards\\Cards.API\\Cards.API.csproj",
       "projectName": "Cards.API",
-      "projectPath": "C:\\Users\\ain.fatiha\\Documents\\GitHub\\Cards\\Cards.API\\Cards.API.csproj",
+      "projectPath": "C:\\Users\\ain.fatiha\\Documents\\GitHub\\combined-repo\\Cards\\Cards.API\\Cards.API.csproj",
       "packagesPath": "C:\\Users\\ain.fatiha\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ain.fatiha\\Documents\\GitHub\\Cards\\Cards.API\\obj\\",
+      "outputPath": "C:\\Users\\ain.fatiha\\Documents\\GitHub\\combined-repo\\Cards\\Cards.API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\ain.fatiha\\AppData\\Roaming\\NuGet\\NuGet.Config",

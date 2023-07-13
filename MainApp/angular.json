@@ -35,6 +35,7 @@
             ],
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
+              "node_modules/jquery/dist/jquery.min.js",
               "src/assets/js/scripts.js",
               "node_modules/datatables-bootstrap/js/dataTables.bootstrap.min.js",
               "node_modules/datatables-bootstrap/js/dataTables.bootstrap.js"

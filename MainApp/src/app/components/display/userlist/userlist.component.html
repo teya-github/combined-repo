@@ -3,6 +3,19 @@
     <li class="breadcrumb-item active">{{breadcrumb}}</li>
 </ol>
 
+<!-- <div class="mb-3 row">
+    <label for="icNum" class="col-sm-3 col-form-label">Testing</label>
+    <div class="col-sm-9">
+        <select [(ngModel)]="name.name" name="role" class="form-select" id="role"
+            aria-label="Default select example">
+            <option selected>Pilih</option>
+            <option *ngFor="let name of listName" [value]="name.name">{{name.name}}
+            </option>
+        </select>
+    </div>
+</div> -->
+
+
 <div class="card shadow mb-4">
     <div class="card-header py-3">
         <!-- <i class="fas fa-table me-1"></i> -->
@@ -185,11 +198,16 @@
         <div class="table-responsive">
             <div class="datatable_wrapper">
                 <div class="datatable-container">
-                    <mat-form-field>
-                        <!-- <mat-label>Filter</mat-label> -->
+                    <!-- <mat-form-field>
                         <input matInput (keyup)="applyFilter($event)" placeholder="Search" class="form-select" #input>
-                    </mat-form-field>
-
+                    </mat-form-field> -->
+                    
+                    <form  class="form-inline">
+                        <label>
+                            <input matInput (keyup)="applyFilter($event)" placeholder="Search" class="form-control mr-sm-2" #input>
+                        </label>
+                    </form>
+                    
                     <mat-table matTableExporter [dataSource]="dataSource" #exporter="matTableExporter" matSort
                         class="datatable-table table-bordered" (matSortChange)="announceSortChange($event)">
 

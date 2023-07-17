@@ -28,25 +28,31 @@ export class UserlistComponent {
   }
   listRole: Role[] = [];
   listUser: User[] = [];
+  listName: User[] = [];
   listStatus: Status[] = [];
   stat: any;
   value: any;
   page: number = 1;
   ip: number = 5;
+  name: User = {} as User;
   user: User = {} as User;
   role: Role = {} as Role;
   date = new Date();
   currentDate: any = this.date.getUTCDate();
+  emailArray: string[] = [];
+  nameArray: string[] = [];
+
 
   ngOnInit() {
     this.getAllUsers();
     this.getAllRoles();
     this.getAllStatus();
-     
-    console.log("HELLO1 : "+this.date);
-    console.log("HELLO2 : "+this.currentDate);
+
+    console.log("HELLO1 : " + this.date);
+    console.log("HELLO2 : " + this.currentDate);
     const formattedDateTime = this.datePipe.transform(this.date, 'yyyy-MM-dd HH:mm:ss');
     console.log(formattedDateTime);
+    console.log("emailArray ngoninit : " + this.emailArray);
   }
 
   // @ViewChilzd('empTbSort') empTbSort = new MatSort();
@@ -59,6 +65,7 @@ export class UserlistComponent {
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+
   }
 
   announceSortChange(sortState: Sort) {
@@ -82,9 +89,45 @@ export class UserlistComponent {
           console.log(this.listUser);
           this.dataSource = new MatTableDataSource<User>(this.listUser);
           this.dataSource.paginator = this.paginator;
+          // for (const record of this.listUser) {
+          //   this.emailArray.push(record.email);
+          // }
+          // // this.listUser = this.listUser.filter(e=>e.email.includes(this.listUser))
+          // this.emailArray = ['fatiha@gmail.com', 'amy@gmail.com', 'amys@gmail.com', 'david@gmail.com']
+          // this.listUser = this.listUser.filter(e => this.emailArray.includes(e.email));
+          // this.nameArray = ['Amy Suzani'];
+          // this.listName = this.listUser.filter(e => this.nameArray.includes(e.name))
+          // //get non repeated
+          // this.listName = this.listName.filter((e, index, self) => {
+          //   return self.findIndex(p => p.name === e.name) === index;
+          // });
+
+          
+          // // this.GetUserByEmailArray(this.emailArray);
+          // console.log("emailArray inside subscribe : " + this.emailArray);
+          // console.log("listUser inside subscribe : " + this.listUser);
+
+        }
+      )
+
+
+  }
+
+  GetUserByEmailArray(email: string[]) {
+    this._freeApiService.GetUserByEmailArray(email)
+      .subscribe(
+        data => {
+          this.listName = data;
+
+          for (const record of Object.values(this.listName)) {
+            this.nameArray.push(record.name);
+            console.log("from those array, we got:" + record.name);
+          }
+          console.log("nameArray inside subscribe : " + this.nameArray);
         }
       )
   }
+
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -141,7 +184,7 @@ export class UserlistComponent {
           }
         )
     }
-    
+
     // console.log(this.card);
   }
 
@@ -223,9 +266,9 @@ export class UserlistComponent {
 
     }
 
-    
+
   }
-  
+
   checkValue(event: any) {
     console.log(event);
     if (event == "Tidak Aktif") {
@@ -239,8 +282,8 @@ export class UserlistComponent {
 
     }
   }
-  
- 
+
+
 
   //  onChange(branchNamae:string,event:any) {  
 

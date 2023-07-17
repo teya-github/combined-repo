@@ -198,6 +198,23 @@ namespace Cards.API.Controllers
             return NotFound("user not found");
         }
 
+        [HttpGet]
+        [Route("/api/Users/getEmailArray")]
+        public IActionResult GetUserByEmailArray([FromQuery] List<string> emails)
+        {
+            var users = cardsDbContext.Users
+                .Where(x => emails.Contains(x.Email))
+                .ToList();
+
+            if (users.Count > 0)
+            {
+                return Ok(users);
+            }
+
+            return NotFound("User(s) not found");
+
+        }
+
         /*[HttpGet]
         [Route("/api/{sampleId}")]
         public async Task<IActionResult> getSampleById(int sampleId)

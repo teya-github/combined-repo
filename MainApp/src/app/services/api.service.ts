@@ -81,6 +81,21 @@ export class ApiService {
     return this.httpclient.get<User>(this.urlUser+'/'+email);
   }
 
+  // GetUserByEmailArray(emailArray:string): Observable<any>
+  // {
+  //   let params1 = new HttpParams().set('emails',emailArray);
+  //   return this.httpclient.get("this.urlUser+'/'+email",{params:params1});
+  // }
+
+  GetUserByEmailArray(emailArray: string[]): Observable<any> {
+    let params = new HttpParams();
+    for (const email of emailArray) {
+      params = params.append('emails', email.toString());
+    }
+    const url = this.urlUser+'/getEmailArray';
+    return this.httpclient.get(url, { params: params });
+  }
+
   updateUser(user: User): Observable<User>
   {
     return this.httpclient.put<User>(this.urlUser + '/' + user.id, user);

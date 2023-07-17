@@ -102,12 +102,10 @@ export class UserlistComponent {
             return self.findIndex(p => p.name === e.name) === index;
           });
 
-          
-          // this.GetUserByEmailArray(this.emailArray);
           console.log("emailArray inside subscribe : ", this.emailArray);
           console.log("listUser inside subscribe : ", this.listUser);
           console.log("llistName@@ : ", this.listName);
-
+          // this.GetUserByEmailArray(this.emailArray);
         }
       )
 

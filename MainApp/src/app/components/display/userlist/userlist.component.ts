@@ -89,23 +89,24 @@ export class UserlistComponent {
           console.log(this.listUser);
           this.dataSource = new MatTableDataSource<User>(this.listUser);
           this.dataSource.paginator = this.paginator;
-          // for (const record of this.listUser) {
-          //   this.emailArray.push(record.email);
-          // }
-          // // this.listUser = this.listUser.filter(e=>e.email.includes(this.listUser))
-          // this.emailArray = ['fatiha@gmail.com', 'amy@gmail.com', 'amys@gmail.com', 'david@gmail.com']
-          // this.listUser = this.listUser.filter(e => this.emailArray.includes(e.email));
-          // this.nameArray = ['Amy Suzani'];
-          // this.listName = this.listUser.filter(e => this.nameArray.includes(e.name))
-          // //get non repeated
-          // this.listName = this.listName.filter((e, index, self) => {
-          //   return self.findIndex(p => p.name === e.name) === index;
-          // });
+          for (const record of this.listUser) {
+            this.emailArray.push(record.email);
+          }
+          // this.listUser = this.listUser.filter(e=>e.email.includes(this.listUser))
+          this.emailArray = ['fatiha@gmail.com', 'amy@gmail.com', 'amys@gmail.com', 'david@gmail.com']
+          this.listUser = this.listUser.filter(e => this.emailArray.includes(e.email));
+          this.nameArray = ['Amy Suzani'];
+          this.listName = this.listUser.filter(e => this.nameArray.includes(e.name))
+          //get non repeated
+          this.listName = this.listName.filter((e, index, self) => {
+            return self.findIndex(p => p.name === e.name) === index;
+          });
 
           
-          // // this.GetUserByEmailArray(this.emailArray);
-          // console.log("emailArray inside subscribe : " + this.emailArray);
-          // console.log("listUser inside subscribe : " + this.listUser);
+          // this.GetUserByEmailArray(this.emailArray);
+          console.log("emailArray inside subscribe : ", this.emailArray);
+          console.log("listUser inside subscribe : ", this.listUser);
+          console.log("llistName@@ : ", this.listName);
 
         }
       )
@@ -123,7 +124,7 @@ export class UserlistComponent {
             this.nameArray.push(record.name);
             console.log("from those array, we got:" + record.name);
           }
-          console.log("nameArray inside subscribe : " + this.nameArray);
+          console.log("nameArray inside subscribe : ", this.nameArray);
         }
       )
   }
@@ -237,7 +238,7 @@ export class UserlistComponent {
       (
         data => {
           this.listRole = data;
-          console.log("ROLES: " + this.listRole);
+          console.log("ROLES: ", this.listRole);
         }
       )
   }
